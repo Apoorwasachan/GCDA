@@ -1,47 +1,4 @@
 
-// import React, { useEffect, useState } from 'react';
-// import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from 'recharts';
-// import axios from 'axios';
-
-// export default function TrendsChart() {
-//   const [data, setData] = useState([]);
-
-//   useEffect(() => {
-//     const fetchTrends = async () => {
-//       try {
-//         const res = await axios.get('http://localhost:5000/api/alerts/trends');
-//         const formatted = res.data.map(item => ({
-//           date: item.date,
-//           low: item.counts?.low || 0,
-//           medium: item.counts?.medium || 0,
-//           high: item.counts?.high || 0
-//         }));
-//         setData(formatted);
-//       } catch (err) {
-//         console.error("Error fetching trend data", err);
-//       }
-//     };
-
-//     fetchTrends();
-//   }, []);
-
-//   return (
-//     <div style={{ width: '100%', height: 400 }}>
-//       <ResponsiveContainer>
-//         <LineChart data={data}>
-//           <CartesianGrid strokeDasharray="3 3" />
-//           <XAxis dataKey="date" />
-//           <YAxis allowDecimals={false} />
-//           <Tooltip />
-//           <Legend />
-//           <Line type="monotone" dataKey="low" stroke="#2196f3" name="Low" />
-//           <Line type="monotone" dataKey="medium" stroke="#ff9800" name="Medium" />
-//           <Line type="monotone" dataKey="high" stroke="#f44336" name="High" />
-//         </LineChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// }
 import React, { useEffect, useState } from 'react';
 import {
   LineChart,

@@ -1,4 +1,3 @@
-// dashboard/admin/Sidebar.jsx
 import React from 'react';
 import {
   Box,
@@ -15,46 +14,43 @@ import {
 } from '@mui/material';
 import {
   ChevronLeft as ChevronLeftIcon,
-  HomeOutlined,
-  PeopleOutline,
-  FormatListBulletedOutlined,
-  AssessmentOutlined,
-  DescriptionOutlined,
-  WorkOutlineOutlined,
-  SecurityOutlined,
+//   DashboardOutlined,
+  PolicyOutlined,
+  AssignmentTurnedInOutlined,
+  HelpOutlineOutlined,
   LogoutOutlined,
+  AssignmentOutlined,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const menuItems = [
-  { label: 'Overview', path: '', icon: <HomeOutlined /> },
-  { label: 'User Management', path: 'users', icon: <PeopleOutline /> },
-  { label: 'Audit Logs', path: 'auditlogs', icon: <FormatListBulletedOutlined /> },
-  { label: 'Policy Management', path: 'policies', icon: <DescriptionOutlined /> },
-  { label: 'GRC Workflow', path: 'grc-workflow', icon: <WorkOutlineOutlined /> },
-  { label: 'Privacy Management', path: 'privacy', icon: <SecurityOutlined /> },
-    { label: 'Logout', path: 'logout', icon: <LogoutOutlined /> },
 
+  { label: 'My Policies', path: '', icon: <PolicyOutlined /> },
+  { label: 'DSAR', path: 'dsar', icon: <AssignmentOutlined /> },
+  { label: 'Help & Support', path: 'help', icon: <HelpOutlineOutlined /> },
+  
+  { label: 'Logout', path: 'logout', icon: <LogoutOutlined /> },
+   
 ];
 
-export default function Sidebar({ isOpen, onClose }) {
+export default function UserSidebar({ isOpen, onClose }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
 
   const active = location.pathname.split('/').pop();
+
   const handleMenuClick = (path) => {
     if (path === 'logout') {
       localStorage.removeItem('token');
       navigate('/login');
       return;
     }
-    navigate(`/dashboard/admin/${path}`);
+    navigate(`/dashboard/user/${path}`);
   };
-
 
   return (
     <Drawer
@@ -72,7 +68,7 @@ export default function Sidebar({ isOpen, onClose }) {
     >
       <Box display="flex" alignItems="center" p={2}>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Admin
+          User Panel
         </Typography>
         <IconButton onClick={onClose}>
           <ChevronLeftIcon />
@@ -83,15 +79,19 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <List sx={{ mt: 1.8 }}>
         {menuItems.map((item) => {
-          const isActive = active === item.path || (active === '' && item.path === '');
+          const isActive =
+            active === item.path || (active === '' && item.path === '');
           return (
             <ListItemButton
               key={item.path}
               selected={isActive}
-              // onClick={() => navigate(`/dashboard/admin/${item.path}`)}
-               onClick={() => handleMenuClick(item.path)}
+              onClick={() => handleMenuClick(item.path)}
             >
-              <ListItemIcon sx={{ color: isActive ? theme.palette.primary.main : 'inherit' }}>
+              <ListItemIcon
+                sx={{
+                  color: isActive ? theme.palette.primary.main : 'inherit',
+                }}
+              >
                 {item.icon}
               </ListItemIcon>
               <ListItemText primary={item.label} />

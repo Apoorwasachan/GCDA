@@ -7,6 +7,8 @@ const authMiddleware = require("./middleware/authMiddleware");
 const caseRoutes = require('./routes/caseRoutes');
 const alertRoutes = require('./routes/alerts.js');
 const analyticsRoutes = require('./routes/analytics');
+const policyRoutes = require("./routes/PolicyRoutes");
+const dsar = require('./routes/dsar');
 
 
 
@@ -30,7 +32,8 @@ app.use('/api/alerts', alertRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/cases', caseRoutes);
 app.use('/api/analytics', analyticsRoutes);
-
+app.use("/api/policies", policyRoutes);
+app.use('/api/dsar', dsar);
 
 app.get("/secure-data", authMiddleware, (req, res) => {
   res.json({ message: "This is protected data." });

@@ -5,14 +5,26 @@ import { jwtDecode } from 'jwt-decode';
 import AdminRoutes from './admin/index.jsx';
 import AnalystRoutes from './analyst/index.jsx';
 import UserRoutes from './user/index.jsx';
+
 import RequireRole from '../../routes/RequireRole.jsx';
+
 import AnalystHome from './analyst/AnalystHome.jsx';
 import LiveAlerts from './analyst/LiveAlerts.jsx';
 import Trends from './analyst/Trends.jsx';
 import CaseQueue from './analyst/CaseQueue.jsx';
 import AuditLogs from "./analyst/analytics/AuditLogs";
 import VulnerabilityDashboard from "./analyst/analytics/VulnerabilityDashboard";
-import AdminHome from "./admin/AdminHome.jsx";
+
+
+import UserManagement from './admin/UserManagement.jsx';
+import PolicyManagement from './admin/PolicyManagement.jsx';
+import GRCWorkflow from './admin/GRCWorkflow.jsx';
+import PrivacyManagement from './admin/PrivacyManagement.jsx';
+
+import Mypolicy from './user/Mypolicy.jsx';
+import Help from './user/Help.jsx';
+import DSAR from './user/DSAR.jsx';
+
 
 const DashboardLayout = () => {
   const token = localStorage.getItem('token');
@@ -40,11 +52,22 @@ const DashboardLayout = () => {
           } replace />
         }/>
 
-        <Route element={<RequireRole roles={['admin']} />}>
-          <Route path="admin/*" element={<AdminRoutes />} />
-          <Route index element={<AdminHome />} />
-               <Route path="auditlogs" element={<AuditLogs />} />
+      
+       
+          <Route element={<RequireRole roles={['admin']} />}>
+        <Route path="admin/*" element={<AdminRoutes />}>
+          <Route index element={<AnalystHome />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="policies" element={<PolicyManagement />} />
+          <Route path="auditlogs" element={<AuditLogs />} />
+          <Route path="grc-workflow" element={<GRCWorkflow />} />
+          <Route path="privacy" element={<PrivacyManagement />} />
         </Route>
+      </Route>
+
+
+        
+        
         <Route element={<RequireRole roles={['analyst']} />}>
               <Route path="analyst/*" element={<AnalystRoutes />}>
               <Route index element={<AnalystHome />} />
@@ -56,9 +79,17 @@ const DashboardLayout = () => {
          </Route>
 </Route>
 
+       
         <Route element={<RequireRole roles={['viewer']} />}>
-          <Route path="user/*" element={<UserRoutes />} />
-        </Route>
+             <Route path="user/*" element={<UserRoutes />}>
+            <Route index element={<Mypolicy />} />
+              <Route path="help" element={<Help />} />
+              <Route path="dsar" element={<DSAR />} />
+              
+           
+  </Route>
+</Route>
+        
 
         <Route path="*" element={<Navigate to="/" replace />}/>
       </Routes>

@@ -81,6 +81,6 @@ router.get('/trends', async (req, res) => {
   }
 });
 
-
 module.exports = router;
+
 
