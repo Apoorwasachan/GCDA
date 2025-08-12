@@ -44,7 +44,7 @@ export default function Sidebar({ isOpen, onClose }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
-
+ 
   const active = location.pathname.split('/').pop();
   const handleMenuClick = (path) => {
     if (path === 'logout') {

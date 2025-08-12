@@ -13,11 +13,11 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 export default function LiveAlerts() {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/alerts');
+        const res = await axios.get(`${API_BASE_URL}/api/alerts`);
         setAlerts(res.data);
       } catch (error) {
         console.error('Failed to fetch alerts:', error);

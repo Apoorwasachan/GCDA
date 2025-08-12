@@ -11,6 +11,7 @@ export default function UserLayout({ role = 'user' }) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const [isSidebarOpen, setSidebarOpen] = useState(isDesktop);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   // Sync sidebar visibility with screen size
   useEffect(() => {

@@ -27,7 +27,7 @@ export default function AdminDSARPage() {
   const [successMsg, setSuccessMsg] = useState("");
 
   const token = localStorage.getItem("token");
-
+ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   useEffect(() => {
     async function fetchDSARs() {
       if (!token) {
@@ -37,7 +37,7 @@ export default function AdminDSARPage() {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/dsar", {
+        const res = await axios.get(`${API_BASE_URL}/api/dsar`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -67,7 +67,7 @@ export default function AdminDSARPage() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/dsar/admin/${id}`,
+        `${API_BASE_URL}/api/dsar/admin/${id}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

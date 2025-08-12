@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Typography, Card, CardContent, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const AuditLogs = () => {
   const [logs, setLogs] = useState([]);
 
    useEffect(() => {
-    axios.get("http://localhost:5000/api/analytics/auditlogs")
+    axios.get(`${API_BASE_URL}/api/analytics/auditlogs`)
       .then(res => {
         console.log("Audit fetch response:", res.data);
         setLogs(Array.isArray(res.data) ? res.data : []);

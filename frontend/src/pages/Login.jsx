@@ -13,12 +13,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const res = await axios.post(`${API_BASE_URL}/api/users/login`, { email, password });
       localStorage.setItem('token', res.data.token);
       toast.success("Registration successful");
        navigate("/dashboard");

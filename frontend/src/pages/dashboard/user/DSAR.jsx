@@ -26,6 +26,7 @@ export default function UserDSAR() {
   const [form, setForm] = useState({ requestType: "Access", details: "" });
   const [submitting, setSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   useEffect(() => {
     async function fetchDSAR() {
@@ -36,7 +37,7 @@ export default function UserDSAR() {
         return;
       }
       try {
-        const res = await axios.get("http://localhost:5000/api/dsar", {
+        const res = await axios.get(`${API_BASE_URL}/api/dsar`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setDsarRequests(res.data);
@@ -68,7 +69,7 @@ export default function UserDSAR() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/dsar",
+        `${API_BASE_URL}/api/dsar`,
         form,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -93,7 +94,7 @@ export default function UserDSAR() {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/dsar/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/dsar/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setDsarRequests(dsarRequests.filter((req) => req._id !== id));

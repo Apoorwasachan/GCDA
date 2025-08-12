@@ -25,14 +25,14 @@ export default function AnalystOverview() {
   const [trendData, setTrendData] = useState([]);
   const [caseData, setCaseData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   useEffect(() => {
     const fetchOverviewData = async () => {
       try {
         const [alertsRes, trendsRes, casesRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/alerts'),
-          axios.get('http://localhost:5000/api/alerts/trends'),
-          axios.get('http://localhost:5000/api/cases')
+          axios.get(`${API_BASE_URL}/api/alerts`),
+          axios.get(`${API_BASE_URL}/api/alerts/trends`),
+          axios.get(`${API_BASE_URL}/api/cases`)
         ]);
 
         setAlertData(alertsRes.data);

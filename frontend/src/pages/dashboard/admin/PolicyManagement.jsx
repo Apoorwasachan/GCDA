@@ -11,10 +11,10 @@ const PolicyManagement = () => {
     category: "Security",
     effectiveDate: ""
   });
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   // Fetch policies
   const fetchPolicies = async () => {
-    const res = await axios.get("http://localhost:5000/api/policies");
+    const res = await axios.get(`${API_BASE_URL}/api/policies`);
     setPolicies(res.data);
   };
 
@@ -28,14 +28,14 @@ const PolicyManagement = () => {
       alert("Please fill all required fields");
       return;
     }
-    await axios.post("http://localhost:5000/api/policies", newPolicy);
+    await axios.post(`${API_BASE_URL}/api/policies`, newPolicy);
     setNewPolicy({ title: "", description: "", category: "Security", effectiveDate: "" });
     fetchPolicies();
   };
 
   // Delete policy
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:5000/api/policies/${id}`);
+    await axios.delete(`${API_BASE_URL}/api/policies/${id}`);
     fetchPolicies();
   };
 

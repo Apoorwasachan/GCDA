@@ -18,10 +18,10 @@ import {
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "viewer" });
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   // Fetch all users
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/api/users");
+    const res = await axios.get(`${API_BASE_URL}/api/users`);
     setUsers(res.data);
   };
 
@@ -37,14 +37,14 @@ export default function UserManagement() {
   // Add new user
   const handleAddUser = async () => {
     if (!form.name || !form.email || !form.password) return alert("All fields required");
-    await axios.post("http://localhost:5000/api/users/add", form);
+    await axios.post(`${API_BASE_URL}/api/users/add`, form);
     setForm({ name: "", email: "", password: "", role: "viewer" });
     fetchUsers();
   };
 
   // Delete user
   const handleDeleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/api/users/${id}`);
+    await axios.delete(`${API_BASE_URL}/api/users/${id}`);
     fetchUsers();
   };
 

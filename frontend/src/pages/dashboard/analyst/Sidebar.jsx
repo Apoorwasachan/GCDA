@@ -18,6 +18,7 @@ import {
   NotificationsActiveOutlined,
   TrendingUpOutlined,
   FormatListBulletedOutlined,
+  LogoutOutlined,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -30,6 +31,7 @@ const menuItems = [
   { label: 'Case Queue', path: 'cases', icon: <FormatListBulletedOutlined /> },
 { label: 'Vulnerability Dashboard', path: 'vulnerability', icon: <NotificationsActiveOutlined /> },
 { label: 'Audit Logs', path: 'auditlogs', icon: <FormatListBulletedOutlined /> },
+ { label: 'Logout', path: 'logout', icon: <LogoutOutlined /> },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -39,7 +41,14 @@ export default function Sidebar({ isOpen, onClose }) {
   const location = useLocation();
 
   const active = location.pathname.split('/').pop();
-
+   const handleMenuClick = (path) => {
+    if (path === 'logout') {
+      localStorage.removeItem('token');
+      navigate('/login');
+      return;
+    }
+    navigate(`/dashboard/analyst/${path}`);
+  };
   return (
     <Drawer
       variant="persistent"
@@ -74,11 +83,8 @@ export default function Sidebar({ isOpen, onClose }) {
             <ListItemButton
               key={item.path}
               selected={isActive}
-              onClick={() => {
-                
-                navigate(`/dashboard/analyst/${item.path}`)
-
-              }}
+              
+                onClick={() => handleMenuClick(item.path)}
              
             >
               <ListItemIcon

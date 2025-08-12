@@ -9,12 +9,13 @@ export default function UserPolicies() {
   const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   useEffect(() => {
     const fetchPolicies = async () => {
       try {
         // Assume this is the existing backend endpoint admins use to manage policies
-        const res = await axios.get("http://localhost:5000/api/policies"); 
+        const res = await axios.get(`${API_BASE_URL}/api/policies`); 
 
         setPolicies(res.data);
       } catch (err) {

@@ -14,14 +14,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function CaseQueue() {
   const [cases, setCases] = useState([]);
   const [newCase, setNewCase] = useState({ title: '', description: '' });
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   const fetchCases = async () => {
-    const res = await axios.get('http://localhost:5000/api/cases');
+    const res = await axios.get(`${API_BASE_URL}/api/cases`);
     setCases(res.data);
   };
 
   const handleSubmit = async () => {
-    await axios.post('http://localhost:5000/api/cases', {
+    await axios.post(`${API_BASE_URL}/api/cases`, {
       ...newCase,
       status: 'pending'
     });
@@ -30,12 +30,12 @@ export default function CaseQueue() {
   };
 
   const updateStatus = async (id, status) => {
-    await axios.put(`http://localhost:5000/api/cases/${id}`, { status });
+    await axios.put(`${API_BASE_URL}/api/cases/${id}`, { status });
     fetchCases();
   };
 
   const deleteCase = async (id) => {
-    await axios.delete(`http://localhost:5000/api/cases/${id}`);
+    await axios.delete(`${API_BASE_URL}/api/cases/${id}`);
     fetchCases();
   };
 

@@ -15,11 +15,12 @@ import { Typography, Paper } from '@mui/material';
 
 export default function TrendsChart() {
   const [data, setData] = useState([]);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   useEffect(() => {
     const fetchTrends = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/alerts/trends');
+        const res = await axios.get(`${API_BASE_URL}/api/alerts/trends`);
         const formatted = res.data.map(item => ({
           date: item.date,
           low: item.counts?.low || 0,

@@ -9,9 +9,10 @@ const AdminGRCWorkflow = () => {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
 
+ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   // Fetch cases
   useEffect(() => {
-    axios.get('http://localhost:5000/api/cases')
+    axios.get(`${API_BASE_URL}/api/cases`)
       .then(res => {
         setCases(res.data);
         setLoading(false);
@@ -21,12 +22,13 @@ const AdminGRCWorkflow = () => {
 
   // Handle status change
   const handleStatusChange = (id, newStatus) => {
-    axios.put(`http://localhost:5000/api/cases/${id}`, { status: newStatus })
+    axios.put(`${API_BASE_URL}/api/cases/${id}`, { status: newStatus })
       .then(res => {
         setCases(cases.map(c => c._id === id ? res.data : c));
       })
       .catch(err => console.error(err));
   };
+ 
 
   if (loading) return <Typography>Loading cases...</Typography>;
 

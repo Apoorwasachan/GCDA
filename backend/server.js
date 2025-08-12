@@ -21,13 +21,19 @@ app.use(express.json());
 dotenv.config();
 
 
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+// mongoose
+//   .connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.error("MongoDB connection error:", err));
+
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .catch(err => console.error("MongoDB connection error:", err));
+
+
 app.use('/api/alerts', alertRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/cases', caseRoutes);
